@@ -1,0 +1,1787 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vida Fresca | Premium Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════════════════════════
+           VARIABLES & THEME
+           ═══════════════════════════════════════════════════════════════ */
+        :root {
+            --primary: #0d9488;
+            --primary-dark: #0f766e;
+            --primary-light: #14b8a6;
+            --primary-gradient: linear-gradient(135deg, #0d9488 0%, #06b6d4 100%);
+            
+            --secondary: #6366f1;
+            --secondary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            
+            --accent: #f59e0b;
+            --accent-gradient: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+            
+            --danger: #ef4444;
+            --danger-gradient: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            
+            --success: #10b981;
+            --success-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --bg-input: #1e293b;
+            
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            
+            --border: #334155;
+            --border-light: #475569;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+            --shadow-glow: 0 0 40px rgba(13, 148, 136, 0.3);
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           RESET & BASE
+           ═══════════════════════════════════════════════════════════════ */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           LAYOUT
+           ═══════════════════════════════════════════════════════════════ */
+        .app-wrapper { display: flex; min-height: 100vh; }
+
+        .sidebar {
+            width: 280px;
+            background: var(--bg-card);
+            border-right: 1px solid var(--border);
+            padding: 24px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px;
+            margin-bottom: 32px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .brand-icon {
+            width: 48px; height: 48px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-md);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px;
+        }
+
+        .brand-text { color: white; font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+        .brand-subtitle { color: rgba(255, 255, 255, 0.8); font-size: 12px; font-weight: 400; }
+
+        .nav-section { margin-bottom: 24px; }
+        .nav-label { color: var(--text-muted); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; padding: 0 12px; margin-bottom: 8px; }
+        .nav-list { list-style: none; }
+        .nav-item { margin-bottom: 4px; }
+
+        .nav-link {
+            display: flex; align-items: center; gap: 12px;
+            padding: 14px 16px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            cursor: pointer;
+            font-weight: 500; font-size: 14px;
+            position: relative; overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: ''; position: absolute; left: 0; top: 0;
+            width: 3px; height: 100%;
+            background: var(--primary-gradient);
+            transform: scaleY(0); transition: var(--transition);
+        }
+
+        .nav-link:hover { background: var(--bg-card-hover); color: var(--text-primary); }
+        .nav-link.active { background: rgba(13, 148, 136, 0.15); color: var(--primary-light); }
+        .nav-link.active::before { transform: scaleY(1); }
+        .nav-icon { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+        .nav-badge { margin-left: auto; background: var(--primary); color: white; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+
+        .main-content { flex: 1; margin-left: 280px; padding: 32px 40px; min-height: 100vh; background: var(--bg-dark); }
+        .page-header { margin-bottom: 40px; }
+        .page-title { font-size: 32px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; letter-spacing: -0.5px; }
+        .page-subtitle { color: var(--text-secondary); font-size: 15px; font-weight: 400; }
+
+        /* ═══════════════════════════════════════════════════════════════
+           CARDS & PANELS
+           ═══════════════════════════════════════════════════════════════ */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 28px;
+            transition: var(--transition);
+        }
+        .card:hover { border-color: var(--border-light); box-shadow: var(--shadow-lg); }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .card-title { font-size: 18px; font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 10px; }
+        .card-subtitle { font-size: 13px; color: var(--text-muted); font-weight: 400; margin-top: 4px; }
+
+        /* ═══════════════════════════════════════════════════════════════
+           BALANCE CARDS
+           ═══════════════════════════════════════════════════════════════ */
+        .balance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-bottom: 32px; }
+        .balance-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius-xl); padding: 28px;
+            position: relative; overflow: hidden; transition: var(--transition);
+        }
+        .balance-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+        .balance-card.business::before { background: var(--primary-gradient); }
+        .balance-card.personal::before { background: var(--secondary-gradient); }
+        .balance-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-xl); border-color: var(--border-light); }
+        .balance-card.business:hover { box-shadow: 0 20px 40px rgba(13, 148, 136, 0.2); }
+        .balance-card.personal:hover { box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2); }
+
+        .balance-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+        .balance-icon { width: 56px; height: 56px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 26px; }
+        .balance-card.business .balance-icon { background: rgba(13, 148, 136, 0.15); }
+        .balance-card.personal .balance-icon { background: rgba(99, 102, 241, 0.15); }
+        .balance-label { color: var(--text-secondary); font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+        .balance-amount { font-size: 42px; font-weight: 700; letter-spacing: -1px; line-height: 1.1; }
+        .balance-card.business .balance-amount { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .balance-card.personal .balance-amount { background: var(--secondary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .balance-info { display: flex; gap: 16px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+        .balance-stat { flex: 1; }
+        .balance-stat-value { font-size: 16px; font-weight: 600; color: var(--text-primary); }
+        .balance-stat-label { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+        /* ═══════════════════════════════════════════════════════════════
+           STATS GRID
+           ═══════════════════════════════════════════════════════════════ */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+        .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; transition: var(--transition); }
+        .stat-card:hover { background: var(--bg-card-hover); border-color: var(--border-light); }
+        .stat-icon { width: 40px; height: 40px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 12px; }
+        .stat-icon.sales { background: rgba(16, 185, 129, 0.15); }
+        .stat-icon.expenses { background: rgba(239, 68, 68, 0.15); }
+        .stat-icon.withdrawals { background: rgba(99, 102, 241, 0.15); }
+        .stat-icon.personal { background: rgba(245, 158, 11, 0.15); }
+        .stat-value { font-size: 24px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; }
+        .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+
+        /* ═══════════════════════════════════════════════════════════════
+           FORMS
+           ═══════════════════════════════════════════════════════════════ */
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 24px; }
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; margin-bottom: 8px; color: var(--text-secondary); font-weight: 500; font-size: 13px; }
+        .form-input, .form-select, .form-textarea {
+            width: 100%; padding: 14px 16px;
+            background: var(--bg-input); border: 1px solid var(--border);
+            border-radius: var(--radius-md); font-size: 14px;
+            color: var(--text-primary); font-family: inherit;
+            transition: var(--transition);
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15); }
+        .form-input::placeholder { color: var(--text-muted); }
+        .form-select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 18px; padding-right: 44px; }
+        .form-textarea { resize: vertical; min-height: 100px; }
+        .form-hint { font-size: 12px; color: var(--text-muted); margin-top: 6px; display: flex; align-items: center; gap: 6px; }
+
+        /* ═══════════════════════════════════════════════════════════════
+           ITEMS LIST (NEW)
+           ═══════════════════════════════════════════════════════════════ */
+        .items-container {
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .item-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto;
+            gap: 12px;
+            margin-bottom: 12px;
+            align-items: end;
+        }
+        .item-row:last-child { margin-bottom: 0; }
+        .btn-remove-item {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: none;
+            width: 42px; height: 46px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: var(--transition);
+            font-size: 18px;
+        }
+        .btn-remove-item:hover { background: #ef4444; color: white; }
+        .btn-add-item {
+            background: transparent;
+            border: 2px dashed var(--border);
+            color: var(--text-secondary);
+            width: 100%;
+            padding: 12px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn-add-item:hover { border-color: var(--primary); color: var(--primary); background: rgba(13, 148, 136, 0.05); }
+
+        /* ═══════════════════════════════════════════════════════════════
+           BUTTONS
+           ═══════════════════════════════════════════════════════════════ */
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 28px; border: none; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; transition: var(--transition); text-decoration: none; }
+        .btn-primary { background: var(--primary-gradient); color: white; box-shadow: 0 4px 14px rgba(13, 148, 136, 0.4); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(13, 148, 136, 0.5); }
+        .btn-secondary { background: var(--secondary-gradient); color: white; box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4); }
+        .btn-secondary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5); }
+        .btn-success { background: var(--success-gradient); color: white; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4); }
+        .btn-success:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5); }
+        .btn-danger { background: var(--danger-gradient); color: white; box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4); }
+        .btn-danger:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5); }
+        .btn-accent { background: var(--accent-gradient); color: white; box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4); }
+        .btn-accent:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5); }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-secondary); }
+        .btn-outline:hover { background: var(--bg-card-hover); border-color: var(--border-light); color: var(--text-primary); }
+        .btn-sm { padding: 8px 16px; font-size: 13px; }
+        .btn-block { width: 100%; }
+        .btn-group { display: flex; gap: 12px; flex-wrap: wrap; }
+
+        /* ═══════════════════════════════════════════════════════════════
+           TABLES
+           ═══════════════════════════════════════════════════════════════ */
+        .table-wrapper { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid var(--border); }
+        .table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        .table th { background: var(--bg-card-hover); color: var(--text-secondary); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; padding: 16px 20px; text-align: left; border-bottom: 1px solid var(--border); }
+        .table td { padding: 16px 20px; border-bottom: 1px solid var(--border); color: var(--text-primary); }
+        .table tr { transition: var(--transition); }
+        .table tr:hover { background: var(--bg-card-hover); }
+        .table tr:last-child td { border-bottom: none; }
+
+        /* ═══════════════════════════════════════════════════════════════
+           BADGES
+           ═══════════════════════════════════════════════════════════════ */
+        .badge { display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
+        .badge-sale { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+        .badge-expense { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+        .badge-withdrawal { background: rgba(99, 102, 241, 0.15); color: #6366f1; }
+        .badge-personal { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+        .amount-positive { color: #10b981; font-weight: 600; }
+        .amount-negative { color: #ef4444; font-weight: 600; }
+        .amount-info { color: #6366f1; font-weight: 600; }
+
+        /* ═══════════════════════════════════════════════════════════════
+           SECTIONS (SPA)
+           ═══════════════════════════════════════════════════════════════ */
+        .section { display: none; animation: fadeIn 0.4s ease; }
+        .section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ═══════════════════════════════════════════════════════════════
+           BACKUP SECTION
+           ═══════════════════════════════════════════════════════════════ */
+        .backup-card { background: linear-gradient(135deg, rgba(13, 148, 136, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%); border: 1px solid rgba(13, 148, 136, 0.3); }
+        .backup-status { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; background: var(--bg-input); border-radius: var(--radius-md); margin-top: 20px; }
+        .status-indicator { display: flex; align-items: center; gap: 10px; color: #10b981; font-weight: 600; font-size: 14px; }
+        .status-dot { width: 10px; height: 10px; background: #10b981; border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.1); } }
+        .last-backup { color: var(--text-muted); font-size: 13px; }
+
+        /* ═══════════════════════════════════════════════════════════════
+           EMPTY STATE
+           ═══════════════════════════════════════════════════════════════ */
+        .empty-state { text-align: center; padding: 60px 20px; }
+        .empty-icon { font-size: 64px; margin-bottom: 16px; opacity: 0.5; }
+        .empty-title { color: var(--text-primary); font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+        .empty-text { color: var(--text-muted); font-size: 14px; }
+
+        /* ═══════════════════════════════════════════════════════════════
+           NOTIFICATIONS
+           ═══════════════════════════════════════════════════════════════ */
+        .notification { position: fixed; top: 24px; right: 24px; padding: 16px 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-xl); transform: translateX(400px); transition: var(--transition); z-index: 9999; display: flex; align-items: center; gap: 12px; min-width: 320px; }
+        .notification.show { transform: translateX(0); }
+        .notification.success { border-color: #10b981; background: rgba(16, 185, 129, 0.1); }
+        .notification.error { border-color: #ef4444; background: rgba(239, 68, 68, 0.1); }
+        .notification.info { border-color: #6366f1; background: rgba(99, 102, 241, 0.1); }
+        .notification-icon { font-size: 20px; }
+        .notification-message { color: var(--text-primary); font-weight: 500; font-size: 14px; }
+
+        /* ═══════════════════════════════════════════════════════════════
+           MODAL
+           ═══════════════════════════════════════════════════════════════ */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 9999; }
+        .modal-overlay.active { display: flex; }
+        .modal { background: var(--bg-card); border: 1px solid var(--border); padding: 32px; border-radius: var(--radius-xl); max-width: 480px; width: 90%; box-shadow: var(--shadow-xl); animation: modalIn 0.3s ease; }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .modal-title { font-size: 22px; font-weight: 700; color: var(--text-primary); margin-bottom: 12px; }
+        .modal-text { color: var(--text-secondary); font-size: 15px; line-height: 1.6; }
+        .modal-buttons { display: flex; gap: 12px; margin-top: 28px; }
+        .modal-buttons .btn { flex: 1; }
+
+        /* ═══════════════════════════════════════════════════════════════
+           HISTORY TABS
+           ═══════════════════════════════════════════════════════════════ */
+        .tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; padding: 6px; background: var(--bg-input); border-radius: var(--radius-lg); width: fit-content; }
+        .tab { padding: 10px 20px; border: none; background: transparent; color: var(--text-secondary); font-weight: 500; font-size: 14px; cursor: pointer; border-radius: var(--radius-md); transition: var(--transition); font-family: inherit; }
+        .tab:hover { color: var(--text-primary); background: var(--bg-card-hover); }
+        .tab.active { background: var(--primary); color: white; }
+
+        /* ═══════════════════════════════════════════════════════════════
+           FLOW DIAGRAM
+           ═══════════════════════════════════════════════════════════════ */
+        .flow-diagram { display: flex; justify-content: center; align-items: center; gap: 16px; padding: 32px; background: var(--bg-input); border-radius: var(--radius-xl); margin-bottom: 32px; flex-wrap: wrap; }
+        .flow-box { padding: 16px 24px; border-radius: var(--radius-lg); text-align: center; font-weight: 600; font-size: 14px; min-width: 140px; }
+        .flow-box.sales { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .flow-box.business { background: rgba(13, 148, 136, 0.15); color: #14b8a6; border: 1px solid rgba(13, 148, 136, 0.3); }
+        .flow-box.personal { background: rgba(99, 102, 241, 0.15); color: #6366f1; border: 1px solid rgba(99, 102, 241, 0.3); }
+        .flow-box.expenses { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .flow-arrow { font-size: 20px; color: var(--text-muted); }
+
+        /* ═══════════════════════════════════════════════════════════════
+           RESPONSIVE
+           ═══════════════════════════════════════════════════════════════ */
+        @media (max-width: 1024px) { .sidebar { width: 240px; } .main-content { margin-left: 240px; padding: 24px; } }
+        @media (max-width: 768px) {
+            .sidebar { width: 100%; height: auto; position: relative; padding: 16px; }
+            .main-content { margin-left: 0; padding: 20px; }
+            .app-wrapper { flex-direction: column; }
+            .balance-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .flow-diagram { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); }
+            .btn-group { flex-direction: column; }
+            .btn { width: 100%; }
+            .item-row { grid-template-columns: 1fr 1fr; }
+            .btn-remove-item { grid-column: span 2; width: 100%; height: 40px; }
+        }
+
+        .text-center { text-align: center; }
+        .mb-0 { margin-bottom: 0; } .mb-1 { margin-bottom: 8px; } .mb-2 { margin-bottom: 16px; } .mb-3 { margin-bottom: 24px; } .mb-4 { margin-bottom: 32px; }
+        .mt-2 { margin-top: 16px; } .mt-3 { margin-top: 24px; } .mt-4 { margin-top: 32px; }
+    </style>
+</head>
+<body>
+    <div class="app-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">🥗</div>
+                <div>
+                    <div class="brand-text">Vida Fresca</div>
+                    <div class="brand-subtitle">Dashboard Premium</div>
+                </div>
+            </div>
+
+            <nav class="nav-section">
+                <div class="nav-label">Principal</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a class="nav-link active" data-section="dashboard"><span class="nav-icon">📊</span>Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" data-section="ventas"><span class="nav-icon">💰</span>Ventas</a></li>
+                    <li class="nav-item"><a class="nav-link" data-section="compras"><span class="nav-icon">🛒</span>Compras</a></li>
+                </ul>
+            </nav>
+
+            <nav class="nav-section">
+                <div class="nav-label">Finanzas Personales</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a class="nav-link" data-section="retiros"><span class="nav-icon">💵</span>Mis Retiros<span class="nav-badge" id="withdrawalBadge">0</span></a></li>
+                    <li class="nav-item"><a class="nav-link" data-section="gastos-personales"><span class="nav-icon">👜</span>Gastos Personales</a></li>
+                </ul>
+            </nav>
+
+            <nav class="nav-section">
+                <div class="nav-label">Reportes</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a class="nav-link" data-section="historial"><span class="nav-icon">📋</span>Historial Completo</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <div class="page-header">
+                    <h1 class="page-title">Dashboard General</h1>
+                    <p class="page-subtitle">Resumen completo de tu emprendimiento</p>
+                </div>
+
+                <!-- Flow Diagram -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">💸 Flujo de Dinero</div>
+                            <div class="card-subtitle">Cómo se mueve tu dinero</div>
+                        </div>
+                    </div>
+                    <div class="flow-diagram">
+                        <div class="flow-box sales">💰 Ventas</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box business">🏦 Negocio</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box expenses">🛒 Insumos</div>
+                        <div class="flow-arrow">↔</div>
+                        <div class="flow-box personal">👤 Tus Retiros</div>
+                    </div>
+                </div>
+
+                <!-- Balance Cards -->
+                <div class="balance-grid">
+                    <div class="balance-card business">
+                        <div class="balance-header">
+                            <div>
+                                <div class="balance-label">Fondo del Negocio</div>
+                                <div class="balance-amount" id="businessBalance">$0.00</div>
+                            </div>
+                            <div class="balance-icon">🏦</div>
+                        </div>
+                        <div class="balance-info">
+                            <div class="balance-stat">
+                                <div class="balance-stat-value" id="businessIncome">$0.00</div>
+                                <div class="balance-stat-label">Entradas</div>
+                            </div>
+                            <div class="balance-stat">
+                                <div class="balance-stat-value" id="businessExpenses">$0.00</div>
+                                <div class="balance-stat-label">Salidas</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="balance-card personal">
+                        <div class="balance-header">
+                            <div>
+                                <div class="balance-label">Tu Bolsillo Personal</div>
+                                <div class="balance-amount" id="personalBalance">$0.00</div>
+                            </div>
+                            <div class="balance-icon">👤</div>
+                        </div>
+                        <div class="balance-info">
+                            <div class="balance-stat">
+                                <div class="balance-stat-value" id="personalIncome">$0.00</div>
+                                <div class="balance-stat-label">Retiros</div>
+                            </div>
+                            <div class="balance-stat">
+                                <div class="balance-stat-value" id="personalExpenses">$0.00</div>
+                                <div class="balance-stat-label">Gastos</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon sales">📈</div>
+                        <div class="stat-value" id="totalSales">$0.00</div>
+                        <div class="stat-label">Ventas Totales</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon expenses">🛒</div>
+                        <div class="stat-value" id="totalExpenses">$0.00</div>
+                        <div class="stat-label">Insumos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon withdrawals">💵</div>
+                        <div class="stat-value" id="totalWithdrawals">$0.00</div>
+                        <div class="stat-label">Tus Retiros</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon personal">👜</div>
+                        <div class="stat-value" id="totalPersonalExpenses">$0.00</div>
+                        <div class="stat-label">Gastos Personales</div>
+                    </div>
+                </div>
+
+                <!-- Backup Section -->
+                <div class="card backup-card mb-4">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">🛡️ Respaldo de Datos</div>
+                            <div class="card-subtitle">Protege tu información</div>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="downloadBackup()">⬇️ Descargar Backup</button>
+                        <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()">⬆️ Restaurar Backup</button>
+                        <input type="file" id="importFile" accept=".json" style="display:none" onchange="importBackup(event)">
+                        <button class="btn btn-accent" onclick="toggleAutoSave()">⏰ Auto-Guardado</button>
+                    </div>
+                    <div class="backup-status">
+                        <div class="status-indicator">
+                            <span class="status-dot"></span>
+                            <span id="autoSaveStatus">Auto-guardado activo - Cada 30 segundos</span>
+                        </div>
+                        <div class="last-backup" id="lastBackupTime">Último respaldo: --</div>
+                    </div>
+                </div>
+
+                <!-- Recent Transactions -->
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">📋 Últimos Movimientos</div>
+                            <div class="card-subtitle">Las 10 transacciones más recientes</div>
+                        </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Tipo</th>
+                                    <th>Descripción</th>
+                                    <th>Monto</th>
+                                    <th>Saldo</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentTransactions"></tbody>
+                        </table>
+                    </div>
+                    <div id="emptyTransactions" class="empty-state" style="display:none;">
+                        <div class="empty-icon">📭</div>
+                        <div class="empty-title">Sin movimientos</div>
+                        <div class="empty-text">Registra tu primera venta para comenzar</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ventas Section -->
+            <section id="ventas" class="section">
+                <div class="page-header">
+                    <h1 class="page-title">💰 Registrar Venta</h1>
+                    <p class="page-subtitle">Agrega múltiples ensaladas a una misma venta</p>
+                </div>
+
+                <div class="card mb-4">
+                    <form id="saleForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">📅 Fecha y Hora</label>
+                                <input type="datetime-local" class="form-input" id="saleDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Cliente (Opcional)</label>
+                                <input type="text" class="form-input" id="saleClient" placeholder="Nombre del cliente">
+                            </div>
+                        </div>
+
+                        <div class="items-container">
+                            <div class="form-label mb-2">🥗 Items de la Venta</div>
+                            <div id="saleItemsList">
+                                <!-- Dynamic items will appear here -->
+                            </div>
+                            <button type="button" class="btn-add-item mt-2" onclick="addSaleItemRow()">
+                                ➕ Agregar otra ensalada
+                            </button>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Notas</label>
+                            <input type="text" class="form-input" id="saleNotes" placeholder="Ingredientes especiales, observaciones...">
+                        </div>
+                        
+                        <div class="backup-status mb-3" style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3);">
+                            <span class="status-indicator" style="color: #10b981;">Total a Cobrar:</span>
+                            <span class="amount-positive" id="saleTotalDisplay" style="font-size: 24px; font-weight: 700;">$0.00</span>
+                        </div>
+
+                        <button type="submit" class="btn btn-success btn-block">
+                            ✅ Registrar Venta
+                        </button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">📋 Historial de Ventas</div>
+                            <div class="card-subtitle">Todas tus ventas registradas</div>
+                        </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Items</th>
+                                    <th>Cliente</th>
+                                    <th>Total</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="salesTable"></tbody>
+                        </table>
+                    </div>
+                    <div id="emptySales" class="empty-state" style="display:none;">
+                        <div class="empty-icon">💰</div>
+                        <div class="empty-title">Sin ventas registradas</div>
+                        <div class="empty-text">Comienza registrando tus primeras ventas</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Compras Section -->
+            <section id="compras" class="section">
+                <div class="page-header">
+                    <h1 class="page-title">🛒 Registrar Compra de Insumos</h1>
+                    <p class="page-subtitle">Agrega múltiples productos a una misma compra</p>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="backup-status mb-3" style="background: rgba(13, 148, 136, 0.1); border: 1px solid rgba(13, 148, 136, 0.3);">
+                        <span class="status-indicator" style="color: #14b8a6;">🏦 Fondo disponible del negocio:</span>
+                        <span class="amount-positive" id="availableBusinessFund" style="font-size: 20px;">$0.00</span>
+                    </div>
+                    <form id="expenseForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">📅 Fecha y Hora</label>
+                                <input type="datetime-local" class="form-input" id="expenseDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Proveedor</label>
+                                <input type="text" class="form-input" id="expenseProvider" placeholder="Ej: Mercado Central" required>
+                            </div>
+                        </div>
+
+                        <div class="items-container">
+                            <div class="form-label mb-2">🥬 Items Comprados</div>
+                            <div id="expenseItemsList">
+                                <!-- Dynamic items will appear here -->
+                            </div>
+                            <button type="button" class="btn-add-item mt-2" onclick="addExpenseItemRow()">
+                                ➕ Agregar otro insumo
+                            </button>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Descripción General</label>
+                            <textarea class="form-textarea" id="expenseDescription" placeholder="Detalles adicionales..."></textarea>
+                        </div>
+
+                        <div class="backup-status mb-3" style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3);">
+                            <span class="status-indicator" style="color: #ef4444;">Total a Pagar:</span>
+                            <span class="amount-negative" id="expenseTotalDisplay" style="font-size: 24px; font-weight: 700;">$0.00</span>
+                        </div>
+
+                        <div class="form-hint mb-3">⚠️ Este gasto se descontará del fondo del negocio</div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            ✅ Registrar Compra
+                        </button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">📋 Historial de Compras</div>
+                            <div class="card-subtitle">Todas tus compras de insumos</div>
+                        </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Proveedor</th>
+                                    <th>Items</th>
+                                    <th>Total</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="expensesTable"></tbody>
+                        </table>
+                    </div>
+                    <div id="emptyExpenses" class="empty-state" style="display:none;">
+                        <div class="empty-icon">🛒</div>
+                        <div class="empty-title">Sin compras registradas</div>
+                        <div class="empty-text">Registra tus primeros insumos</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Retiros Section -->
+            <section id="retiros" class="section">
+                <div class="page-header">
+                    <h1 class="page-title">💵 Mis Retiros</h1>
+                    <p class="page-subtitle">Retira dinero del negocio para tus gastos personales</p>
+                </div>
+
+                <div class="card mb-4" style="border-color: rgba(99, 102, 241, 0.3); background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);">
+                    <div class="backup-status mb-3" style="background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3);">
+                        <span class="status-indicator" style="color: #6366f1;">🏦 Fondo del negocio disponible:</span>
+                        <span class="amount-info" id="withdrawalBusinessFund" style="font-size: 20px;">$0.00</span>
+                    </div>
+                    <div class="backup-status mb-3" style="background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3);">
+                        <span class="status-indicator" style="color: #8b5cf6;">👤 Tu bolsillo personal actual:</span>
+                        <span class="amount-info" id="withdrawalPersonalFund" style="font-size: 20px;">$0.00</span>
+                    </div>
+                    
+                    <form id="withdrawalForm">
+                        <div class="form-group">
+                            <label class="form-label">Monto a retirar ($)</label>
+                            <input type="number" class="form-input" id="withdrawalAmount" placeholder="0.00" step="0.01" min="0" required>
+                            <div class="form-hint">💡 Este dinero pasa del negocio a tu bolsillo personal</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Nota (Opcional)</label>
+                            <input type="text" class="form-input" id="withdrawalNote" placeholder="Ej: Sueldo semanal, gastos del mes...">
+                        </div>
+                        <button type="submit" class="btn btn-secondary btn-block">
+                            💵 Realizar Retiro
+                        </button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">📋 Historial de Retiros</div>
+                            <div class="card-subtitle">Todos tus retiros del negocio</div>
+                        </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Nota</th>
+                                    <th>Monto</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="withdrawalsTable"></tbody>
+                        </table>
+                    </div>
+                    <div id="emptyWithdrawals" class="empty-state" style="display:none;">
+                        <div class="empty-icon">💵</div>
+                        <div class="empty-title">Sin retiros registrados</div>
+                        <div class="empty-text">Cuando retires dinero del negocio, aparecerá aquí</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gastos Personales Section -->
+            <section id="gastos-personales" class="section">
+                <div class="page-header">
+                    <h1 class="page-title">👜 Gastos Personales</h1>
+                    <p class="page-subtitle">Registra gastos que pagas con tu dinero personal</p>
+                </div>
+
+                <div class="card mb-4" style="border-color: rgba(245, 158, 11, 0.3); background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(249, 115, 22, 0.1) 100%);">
+                    <div class="backup-status mb-3" style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3);">
+                        <span class="status-indicator" style="color: #f59e0b;">👤 Tu bolsillo personal disponible:</span>
+                        <span class="amount-info" id="personalExpenseFund" style="font-size: 20px;">$0.00</span>
+                    </div>
+                    
+                    <form id="personalExpenseForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Categoría</label>
+                                <select class="form-select" id="personalExpenseCategory" required>
+                                    <option value="">Seleccionar...</option>
+                                    <option value="comida">🍽️ Comida</option>
+                                    <option value="transporte">🚗 Transporte</option>
+                                    <option value="servicios">💡 Servicios</option>
+                                    <option value="ocio">🎬 Ocio</option>
+                                    <option value="salud">🏥 Salud</option>
+                                    <option value="otros">📋 Otros</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Monto ($)</label>
+                                <input type="number" class="form-input" id="personalExpenseAmount" placeholder="0.00" step="0.01" min="0" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Descripción</label>
+                            <input type="text" class="form-input" id="personalExpenseDescription" placeholder="Ej: Almuerzo, taxi, cine...">
+                        </div>
+                        <div class="form-hint">⚠️ Este gasto se descontará de tu bolsillo personal (tus retiros)</div>
+                        <button type="submit" class="btn btn-accent btn-block mt-3">
+                            ✅ Registrar Gasto Personal
+                        </button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">📋 Historial de Gastos Personales</div>
+                            <div class="card-subtitle">Todos tus gastos personales</div>
+                        </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Categoría</th>
+                                    <th>Descripción</th>
+                                    <th>Monto</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="personalExpensesTable"></tbody>
+                        </table>
+                    </div>
+                    <div id="emptyPersonalExpenses" class="empty-state" style="display:none;">
+                        <div class="empty-icon">👜</div>
+                        <div class="empty-title">Sin gastos personales registrados</div>
+                        <div class="empty-text">Registra tus gastos personales aquí</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Historial Section -->
+            <section id="historial" class="section">
+                <div class="page-header">
+                    <h1 class="page-title">📋 Historial Completo</h1>
+                    <p class="page-subtitle">Todos los movimientos de tu emprendimiento</p>
+                </div>
+
+                <div class="card">
+                    <div class="tabs">
+                        <button class="tab active" onclick="filterHistory('all')">Todos</button>
+                        <button class="tab" onclick="filterHistory('sale')">Ventas</button>
+                        <button class="tab" onclick="filterHistory('expense')">Insumos</button>
+                        <button class="tab" onclick="filterHistory('withdrawal')">Retiros</button>
+                        <button class="tab" onclick="filterHistory('personal')">Gastos Personales</button>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Tipo</th>
+                                    <th>Descripción</th>
+                                    <th>Monto</th>
+                                    <th>Saldo</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="fullHistoryTable"></tbody>
+                        </table>
+                    </div>
+                    <div id="emptyHistory" class="empty-state" style="display:none;">
+                        <div class="empty-icon">📭</div>
+                        <div class="empty-title">Sin movimientos</div>
+                        <div class="empty-text">Tus movimientos aparecerán aquí</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <span class="notification-icon"></span>
+        <span class="notification-message"></span>
+    </div>
+
+    <!-- Confirm Modal -->
+    <div class="modal-overlay" id="confirmModal">
+        <div class="modal">
+            <div class="modal-title">⚠️ ¿Estás seguro?</div>
+            <p class="modal-text" id="confirmMessage">Esta acción no se puede deshacer.</p>
+            <div class="modal-buttons">
+                <button class="btn btn-outline" onclick="closeModal()">Cancelar</button>
+                <button class="btn btn-danger" id="confirmAction">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ═══════════════════════════════════════════════════════════════
+           ESTADO DE LA APLICACIÓN
+           ═══════════════════════════════════════════════════════════════ */
+        let appData = {
+            sales: [],
+            expenses: [],
+            withdrawals: [],
+            personalExpenses: [],
+            autoSave: true,
+            lastBackup: null
+        };
+
+        let autoSaveInterval = null;
+        let currentHistoryFilter = 'all';
+        let pendingDelete = null;
+
+        /* ═══════════════════════════════════════════════════════════════
+           INICIALIZACIÓN
+           ═══════════════════════════════════════════════════════════════ */
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            setupNavigation();
+            setupForms();
+            updateAllDisplays();
+            startAutoSave();
+            
+            // Set default date to now for inputs
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            const nowString = now.toISOString().slice(0,16);
+            document.getElementById('saleDate').value = nowString;
+            document.getElementById('expenseDate').value = nowString;
+            
+            // Add initial row
+            addSaleItemRow();
+            addExpenseItemRow();
+        });
+
+        /* ═══════════════════════════════════════════════════════════════
+           NAVEGACIÓN SPA
+           ═══════════════════════════════════════════════════════════════ */
+        function setupNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const sectionId = this.getAttribute('data-section');
+                    
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                    document.getElementById(sectionId).classList.add('active');
+                    
+                    updateAllDisplays();
+                });
+            });
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           FORMULARIOS & ITEMS DINÁMICOS
+           ═══════════════════════════════════════════════════════════════ */
+        function setupForms() {
+            document.getElementById('saleForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                addSale();
+            });
+
+            document.getElementById('expenseForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                addExpense();
+            });
+
+            document.getElementById('withdrawalForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                addWithdrawal();
+            });
+
+            document.getElementById('personalExpenseForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                addPersonalExpense();
+            });
+        }
+
+        // --- SALE ITEMS LOGIC ---
+        function addSaleItemRow() {
+            const container = document.getElementById('saleItemsList');
+            const row = document.createElement('div');
+            row.className = 'item-row';
+            row.innerHTML = `
+                <div>
+                    <label class="form-label" style="font-size:11px">Producto</label>
+                    <select class="form-select sale-item-type" required>
+                        <option value="">Seleccionar...</option>
+                        <option value="mix arcoiris">🥗 Mix Arcoiris</option>
+                        <option value="la colorada">🥗 La colorada</option>
+                        <option value="coleslaw">🥗 Coleslaw</option>
+                        <option value="mixta">🥗 Mixta</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="form-label" style="font-size:11px">Cant.</label>
+                    <input type="number" class="form-input sale-item-qty" placeholder="1" min="1" value="1" required oninput="calculateSaleTotal()">
+                </div>
+                <div>
+                    <label class="form-label" style="font-size:11px">Precio Unit.</label>
+                    <input type="number" class="form-input sale-item-price" placeholder="0.00" step="0.01" min="0" required oninput="calculateSaleTotal()">
+                </div>
+                <button type="button" class="btn-remove-item" onclick="removeRow(this)" title="Eliminar item">🗑️</button>
+            `;
+            container.appendChild(row);
+        }
+
+        function calculateSaleTotal() {
+            let total = 0;
+            const rows = document.querySelectorAll('#saleItemsList .item-row');
+            rows.forEach(row => {
+                const qty = parseFloat(row.querySelector('.sale-item-qty').value) || 0;
+                const price = parseFloat(row.querySelector('.sale-item-price').value) || 0;
+                total += qty * price;
+            });
+            document.getElementById('saleTotalDisplay').textContent = formatCurrency(total);
+            return total;
+        }
+
+        // --- EXPENSE ITEMS LOGIC ---
+        function addExpenseItemRow() {
+            const container = document.getElementById('expenseItemsList');
+            const row = document.createElement('div');
+            row.className = 'item-row';
+            row.innerHTML = `
+                <div>
+                    <label class="form-label" style="font-size:11px">Insumo</label>
+                    <input type="text" class="form-input expense-item-name" placeholder="Ej: Lechuga" required>
+                </div>
+                <div>
+                    <label class="form-label" style="font-size:11px">Cant.</label>
+                    <input type="text" class="form-input expense-item-qty" placeholder="Ej: 5kg" >
+                </div>
+                <div>
+                    <label class="form-label" style="font-size:11px">Precio Total</label>
+                    <input type="number" class="form-input expense-item-price" placeholder="0.00" step="0.01" min="0" required oninput="calculateExpenseTotal()">
+                </div>
+                <button type="button" class="btn-remove-item" onclick="removeRow(this)" title="Eliminar item">🗑️</button>
+            `;
+            container.appendChild(row);
+        }
+
+        function calculateExpenseTotal() {
+            let total = 0;
+            const rows = document.querySelectorAll('#expenseItemsList .item-row');
+            rows.forEach(row => {
+                const price = parseFloat(row.querySelector('.expense-item-price').value) || 0;
+                total += price;
+            });
+            document.getElementById('expenseTotalDisplay').textContent = formatCurrency(total);
+            return total;
+        }
+
+        function removeRow(btn) {
+            const container = btn.parentElement.parentElement;
+            if (container.children.length > 1) {
+                btn.parentElement.remove();
+                // Recalculate totals
+                if (container.id === 'saleItemsList') calculateSaleTotal();
+                if (container.id === 'expenseItemsList') calculateExpenseTotal();
+            } else {
+                showNotification('⚠️ Debes tener al menos un item', 'error');
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           GESTIÓN DE DATOS
+           ═══════════════════════════════════════════════════════════════ */
+        function loadData() {
+            try {
+                const saved = localStorage.getItem('vidaFrescaData');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    appData = {
+                        sales: Array.isArray(parsed.sales) ? parsed.sales : [],
+                        expenses: Array.isArray(parsed.expenses) ? parsed.expenses : [],
+                        withdrawals: Array.isArray(parsed.withdrawals) ? parsed.withdrawals : [],
+                        personalExpenses: Array.isArray(parsed.personalExpenses) ? parsed.personalExpenses : [],
+                        autoSave: parsed.autoSave !== false,
+                        lastBackup: parsed.lastBackup || null
+                    };
+                }
+            } catch (error) {
+                console.error('Error loading data', error);
+                showNotification('Error al cargar datos', 'error');
+            }
+        }
+
+        function saveData() {
+            try {
+                appData.lastBackup = new Date().toISOString();
+                localStorage.setItem('vidaFrescaData', JSON.stringify(appData));
+                updateLastBackupDisplay();
+            } catch (error) {
+                console.error('Error saving data:', error);
+                showNotification('Error al guardar datos', 'error');
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           CÁLCULO DE SALDOS
+           ═══════════════════════════════════════════════════════════════ */
+        function calculateBalances() {
+            const totalSales = appData.sales.reduce((sum, s) => sum + (parseFloat(s.total) || 0), 0);
+            const totalExpenses = appData.expenses.reduce((sum, e) => sum + (parseFloat(e.total) || 0), 0);
+            const totalWithdrawals = appData.withdrawals.reduce((sum, w) => sum + (parseFloat(w.amount) || 0), 0);
+            const totalPersonalExpenses = appData.personalExpenses.reduce((sum, p) => sum + (parseFloat(p.amount) || 0), 0);
+
+            const businessBalance = totalSales - totalExpenses - totalWithdrawals;
+            const personalBalance = totalWithdrawals - totalPersonalExpenses;
+
+            return {
+                totalSales,
+                totalExpenses,
+                totalWithdrawals,
+                totalPersonalExpenses,
+                businessBalance,
+                personalBalance
+            };
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           VENTAS (CON MÚLTIPLES ITEMS)
+           ═══════════════════════════════════════════════════════════════ */
+        function addSale() {
+            const date = document.getElementById('saleDate').value;
+            const client = document.getElementById('saleClient').value;
+            const notes = document.getElementById('saleNotes').value;
+            
+            // Collect items
+            const items = [];
+            const rows = document.querySelectorAll('#saleItemsList .item-row');
+            let isValid = true;
+            let grandTotal = 0;
+
+            rows.forEach(row => {
+                const type = row.querySelector('.sale-item-type').value;
+                const qty = parseFloat(row.querySelector('.sale-item-qty').value) || 0;
+                const price = parseFloat(row.querySelector('.sale-item-price').value) || 0;
+
+                if (!type || qty <= 0 || price <= 0) isValid = false;
+                
+                items.push({ type, qty, price, subtotal: qty * price });
+                grandTotal += (qty * price);
+            });
+
+            if (!isValid || items.length === 0 || grandTotal <= 0) {
+                showNotification('⚠️ Completa todos los items correctamente', 'error');
+                return;
+            }
+
+            const sale = {
+                id: Date.now(),
+                date: date,
+                items: items,
+                total: grandTotal,
+                client: client,
+                notes: notes
+            };
+
+            appData.sales.push(sale);
+            saveData();
+            
+            // Reset form but keep date
+            document.getElementById('saleForm').reset();
+            document.getElementById('saleDate').value = date; 
+            document.getElementById('saleItemsList').innerHTML = '';
+            addSaleItemRow(); // Add one empty row back
+            calculateSaleTotal();
+            
+            showNotification('✅ Venta registrada exitosamente', 'success');
+            updateAllDisplays();
+        }
+
+        function deleteSale(id) {
+            appData.sales = appData.sales.filter(s => s.id !== id);
+            saveData();
+            showNotification('🗑️ Venta eliminada', 'success');
+            updateAllDisplays();
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           COMPRAS (CON MÚLTIPLES ITEMS)
+           ═══════════════════════════════════════════════════════════════ */
+        function addExpense() {
+            const date = document.getElementById('expenseDate').value;
+            const provider = document.getElementById('expenseProvider').value;
+            const description = document.getElementById('expenseDescription').value;
+            
+            // Collect items
+            const items = [];
+            const rows = document.querySelectorAll('#expenseItemsList .item-row');
+            let isValid = true;
+            let grandTotal = 0;
+
+            rows.forEach(row => {
+                const name = row.querySelector('.expense-item-name').value;
+                const qty = row.querySelector('.expense-item-qty').value;
+                const price = parseFloat(row.querySelector('.expense-item-price').value) || 0;
+
+                if (!name || !qty || price <= 0) isValid = false;
+                
+                items.push({ name, qty, price });
+                grandTotal += price;
+            });
+
+            if (!isValid || items.length === 0 || grandTotal <= 0) {
+                showNotification('⚠️ Completa todos los items correctamente', 'error');
+                return;
+            }
+
+            const balances = calculateBalances();
+            if (grandTotal > balances.businessBalance) {
+                showNotification('⚠️ No hay suficiente fondo en el negocio', 'error');
+                return;
+            }
+
+            const expense = {
+                id: Date.now(),
+                date: date,
+                provider: provider,
+                items: items,
+                total: grandTotal,
+                description: description
+            };
+
+            appData.expenses.push(expense);
+            saveData();
+            
+            // Reset form
+            document.getElementById('expenseForm').reset();
+            document.getElementById('expenseDate').value = date;
+            document.getElementById('expenseItemsList').innerHTML = '';
+            addExpenseItemRow();
+            calculateExpenseTotal();
+            
+            showNotification('✅ Compra registrada exitosamente', 'success');
+            updateAllDisplays();
+        }
+
+        function deleteExpense(id) {
+            appData.expenses = appData.expenses.filter(e => e.id !== id);
+            saveData();
+            showNotification('🗑️ Compra eliminada', 'success');
+            updateAllDisplays();
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           RETIROS
+           ═══════════════════════════════════════════════════════════════ */
+        function addWithdrawal() {
+            const amount = parseFloat(document.getElementById('withdrawalAmount').value) || 0;
+
+            if (amount <= 0) {
+                showNotification('⚠️ Ingresa un monto válido', 'error');
+                return;
+            }
+
+            const balances = calculateBalances();
+            if (amount > balances.businessBalance) {
+                showNotification('⚠️ No hay suficiente fondo en el negocio para retirar', 'error');
+                return;
+            }
+
+            const withdrawal = {
+                id: Date.now(),
+                date: new Date().toISOString(),
+                amount: amount,
+                note: document.getElementById('withdrawalNote').value || ''
+            };
+
+            appData.withdrawals.push(withdrawal);
+            saveData();
+            
+            document.getElementById('withdrawalForm').reset();
+            showNotification('💵 Retiro realizado exitosamente', 'success');
+            updateAllDisplays();
+        }
+
+        function deleteWithdrawal(id) {
+            appData.withdrawals = appData.withdrawals.filter(w => w.id !== id);
+            saveData();
+            showNotification('🗑️ Retiro eliminado', 'success');
+            updateAllDisplays();
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           GASTOS PERSONALES
+           ═══════════════════════════════════════════════════════════════ */
+        function addPersonalExpense() {
+            const category = document.getElementById('personalExpenseCategory').value;
+            const amount = parseFloat(document.getElementById('personalExpenseAmount').value) || 0;
+
+            if (!category || amount <= 0) {
+                showNotification('⚠️ Completa todos los campos requeridos', 'error');
+                return;
+            }
+
+            const balances = calculateBalances();
+            if (amount > balances.personalBalance) {
+                showNotification('⚠️ No tienes suficiente en tu bolsillo personal', 'error');
+                return;
+            }
+
+            const expense = {
+                id: Date.now(),
+                date: new Date().toISOString(),
+                category: category,
+                amount: amount,
+                description: document.getElementById('personalExpenseDescription').value || ''
+            };
+
+            appData.personalExpenses.push(expense);
+            saveData();
+            
+            document.getElementById('personalExpenseForm').reset();
+            showNotification('✅ Gasto personal registrado', 'success');
+            updateAllDisplays();
+        }
+
+        function deletePersonalExpense(id) {
+            appData.personalExpenses = appData.personalExpenses.filter(p => p.id !== id);
+            saveData();
+            showNotification('🗑️ Gasto personal eliminado', 'success');
+            updateAllDisplays();
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           ACTUALIZACIÓN DE UI
+           ═══════════════════════════════════════════════════════════════ */
+        function updateAllDisplays() {
+            const balances = calculateBalances();
+            
+            // Update balance cards
+            document.getElementById('businessBalance').textContent = formatCurrency(balances.businessBalance);
+            document.getElementById('personalBalance').textContent = formatCurrency(balances.personalBalance);
+
+            // Update balance stats
+            document.getElementById('businessIncome').textContent = formatCurrency(balances.totalSales);
+            document.getElementById('businessExpenses').textContent = formatCurrency(balances.totalExpenses + balances.totalWithdrawals);
+            document.getElementById('personalIncome').textContent = formatCurrency(balances.totalWithdrawals);
+            document.getElementById('personalExpenses').textContent = formatCurrency(balances.totalPersonalExpenses);
+
+            // Update stats grid
+            document.getElementById('totalSales').textContent = formatCurrency(balances.totalSales);
+            document.getElementById('totalExpenses').textContent = formatCurrency(balances.totalExpenses);
+            document.getElementById('totalWithdrawals').textContent = formatCurrency(balances.totalWithdrawals);
+            document.getElementById('totalPersonalExpenses').textContent = formatCurrency(balances.totalPersonalExpenses);
+
+            // Update fund displays
+            document.getElementById('availableBusinessFund').textContent = formatCurrency(balances.businessBalance);
+            document.getElementById('withdrawalBusinessFund').textContent = formatCurrency(balances.businessBalance);
+            document.getElementById('withdrawalPersonalFund').textContent = formatCurrency(balances.personalBalance);
+            document.getElementById('personalExpenseFund').textContent = formatCurrency(balances.personalBalance);
+
+            // Update withdrawal badge
+            document.getElementById('withdrawalBadge').textContent = appData.withdrawals.length;
+
+            // Update tables
+            updateSalesTable();
+            updateExpensesTable();
+            updateWithdrawalsTable();
+            updatePersonalExpensesTable();
+            updateRecentTransactions();
+            updateFullHistory();
+        }
+
+        function updateSalesTable() {
+            const tbody = document.getElementById('salesTable');
+            const empty = document.getElementById('emptySales');
+
+            if (!appData.sales || appData.sales.length === 0) {
+                tbody.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+
+            empty.style.display = 'none';
+            tbody.innerHTML = appData.sales.slice().reverse().map(s => {
+                // Create items summary string: "3x Clásica, 4x Mix..."
+                const itemsSummary = s.items.map(i => `${i.qty}x ${i.type}`).join(', ');
+                
+                return `
+                <tr>
+                    <td>${formatDate(s.date)}</td>
+                    <td><span class="badge badge-sale" style="white-space:normal; display:inline-block; max-width:200px;">${itemsSummary}</span></td>
+                    <td>${s.client || '-'}</td>
+                    <td class="amount-positive">+${formatCurrency(s.total)}</td>
+                    <td><button class="btn btn-sm btn-outline" onclick="confirmDelete('sale', ${s.id})">Eliminar</button></td>
+                </tr>
+            `}).join('');
+        }
+
+        function updateExpensesTable() {
+            const tbody = document.getElementById('expensesTable');
+            const empty = document.getElementById('emptyExpenses');
+
+            if (!appData.expenses || appData.expenses.length === 0) {
+                tbody.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+
+            empty.style.display = 'none';
+            tbody.innerHTML = appData.expenses.slice().reverse().map(e => {
+                // Create items summary string: "Lechuga (5kg), Tomate (2kg)..."
+                const itemsSummary = e.items.map(i => `${i.name} (${i.qty})`).join(', ');
+
+                return `
+                <tr>
+                    <td>${formatDate(e.date)}</td>
+                    <td>${e.provider}</td>
+                    <td><span class="badge badge-expense" style="white-space:normal; display:inline-block; max-width:200px;">${itemsSummary}</span></td>
+                    <td class="amount-negative">-${formatCurrency(e.total)}</td>
+                    <td><button class="btn btn-sm btn-outline" onclick="confirmDelete('expense', ${e.id})">Eliminar</button></td>
+                </tr>
+            `}).join('');
+        }
+
+        function updateWithdrawalsTable() {
+            const tbody = document.getElementById('withdrawalsTable');
+            const empty = document.getElementById('emptyWithdrawals');
+
+            if (!appData.withdrawals || appData.withdrawals.length === 0) {
+                tbody.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+
+            empty.style.display = 'none';
+            tbody.innerHTML = appData.withdrawals.slice().reverse().map(w => `
+                <tr>
+                    <td>${formatDate(w.date)}</td>
+                    <td>${w.note || '-'}</td>
+                    <td class="amount-info">-${formatCurrency(w.amount)}</td>
+                    <td><button class="btn btn-sm btn-outline" onclick="confirmDelete('withdrawal', ${w.id})">Eliminar</button></td>
+                </tr>
+            `).join('');
+        }
+
+        function updatePersonalExpensesTable() {
+            const tbody = document.getElementById('personalExpensesTable');
+            const empty = document.getElementById('emptyPersonalExpenses');
+
+            if (!appData.personalExpenses || appData.personalExpenses.length === 0) {
+                tbody.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+
+            empty.style.display = 'none';
+            tbody.innerHTML = appData.personalExpenses.slice().reverse().map(p => `
+                <tr>
+                    <td>${formatDate(p.date)}</td>
+                    <td><span class="badge badge-personal">${p.category}</span></td>
+                    <td>${p.description || '-'}</td>
+                    <td class="amount-negative">-${formatCurrency(p.amount)}</td>
+                    <td><button class="btn btn-sm btn-outline" onclick="confirmDelete('personal', ${p.id})">Eliminar</button></td>
+                </tr>
+            `).join('');
+        }
+
+        function updateRecentTransactions() {
+            const tbody = document.getElementById('recentTransactions');
+            const empty = document.getElementById('emptyTransactions');
+
+            const all = [
+                ...(appData.sales || []).map(s => ({...s, type: 'sale', description: s.items.map(i=>`${i.qty}x ${i.type}`).join(', '), amount: s.total, fund: 'business'})),
+                ...(appData.expenses || []).map(e => ({...e, type: 'expense', description: e.provider, amount: e.total, fund: 'business'})),
+                ...(appData.withdrawals || []).map(w => ({...w, type: 'withdrawal', description: w.note || 'Retiro', fund: 'transfer'})),
+                ...(appData.personalExpenses || []).map(p => ({...p, type: 'personal', description: p.category, fund: 'personal'}))
+            ].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 10);
+
+            if (all.length === 0) {
+                tbody.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+
+            empty.style.display = 'none';
+            tbody.innerHTML = all.map(t => {
+                let badgeClass = 'badge-sale';
+                let amountClass = 'amount-positive';
+                let amountPrefix = '+';
+                let fundText = '🏦 Negocio';
+
+                if (t.type === 'expense') {
+                    badgeClass = 'badge-expense';
+                    amountClass = 'amount-negative';
+                    amountPrefix = '-';
+                } else if (t.type === 'withdrawal') {
+                    badgeClass = 'badge-withdrawal';
+                    amountClass = 'amount-info';
+                    amountPrefix = '-';
+                    fundText = '🔄 Negocio → Personal';
+                } else if (t.type === 'personal') {
+                    badgeClass = 'badge-personal';
+                    amountClass = 'amount-negative';
+                    amountPrefix = '-';
+                    fundText = '👤 Personal';
+                }
+
+                return `
+                    <tr>
+                        <td>${formatDate(t.date)}</td>
+                        <td><span class="badge ${badgeClass}">${getTransactionLabel(t.type)}</span></td>
+                        <td>${t.description}</td>
+                        <td class="${amountClass}">${amountPrefix}${formatCurrency(t.amount)}</td>
+                        <td>${fundText}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function updateFullHistory() {
+            const tbody = document.getElementById('fullHistoryTable');
+            const empty = document.getElementById('emptyHistory');
+
+            let all = [];
+
+            if (currentHistoryFilter === 'all' || currentHistoryFilter === 'sale') {
+                all = all.concat((appData.sales || []).map(s => ({...s, type: 'sale', description: s.items.map(i=>`${i.qty}x ${i.type}`).join(', '), amount: s.total, fund: 'business'})));
+            }
+            if (currentHistoryFilter === 'all' || currentHistoryFilter === 'expense') {
+                all = all.concat((appData.expenses || []).map(e => ({...e, type: 'expense', description: e.provider, amount: e.total, fund: 'business'})));
+            }
+            if (currentHistoryFilter === 'all' || currentHistoryFilter === 'withdrawal') {
+                all = all.concat((appData.withdrawals || []).map(w => ({...w, type: 'withdrawal', description: w.note || 'Retiro', fund: 'transfer'})));
+            }
+            if (currentHistoryFilter === 'all' || currentHistoryFilter === 'personal') {
+                all = all.concat((appData.personalExpenses || []).map(p => ({...p, type: 'personal', description: p.category, fund: 'personal'})));
+            }
+
+            all = all.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            if (all.length === 0) {
+                tbody.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+
+            empty.style.display = 'none';
+            tbody.innerHTML = all.map(t => {
+                let badgeClass = 'badge-sale';
+                let amountClass = 'amount-positive';
+                let amountPrefix = '+';
+
+                if (t.type === 'expense') {
+                    badgeClass = 'badge-expense';
+                    amountClass = 'amount-negative';
+                    amountPrefix = '-';
+                } else if (t.type === 'withdrawal') {
+                    badgeClass = 'badge-withdrawal';
+                    amountClass = 'amount-info';
+                    amountPrefix = '-';
+                } else if (t.type === 'personal') {
+                    badgeClass = 'badge-personal';
+                    amountClass = 'amount-negative';
+                    amountPrefix = '-';
+                }
+
+                const deleteFunction = {
+                    'sale': 'sale',
+                    'expense': 'expense',
+                    'withdrawal': 'withdrawal',
+                    'personal': 'personal'
+                }[t.type];
+
+                return `
+                    <tr>
+                        <td>${formatDate(t.date, true)}</td>
+                        <td><span class="badge ${badgeClass}">${getTransactionLabel(t.type)}</span></td>
+                        <td>${t.description}</td>
+                        <td class="${amountClass}">${amountPrefix}${formatCurrency(t.amount)}</td>
+                        <td>${t.fund === 'business' ? '🏦 Negocio' : t.fund === 'personal' ? '👤 Personal' : '🔄 Transferencia'}</td>
+                        <td><button class="btn btn-sm btn-outline" onclick="confirmDelete('${deleteFunction}', ${t.id})">Eliminar</button></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function filterHistory(filter) {
+            currentHistoryFilter = filter;
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            updateFullHistory();
+        }
+
+        function getTransactionLabel(type) {
+            const labels = {
+                'sale': 'Venta',
+                'expense': 'Insumo',
+                'withdrawal': 'Retiro',
+                'personal': 'Gasto Personal'
+            };
+            return labels[type] || type;
+        }
+
+        function updateLastBackupDisplay() {
+            if (appData.lastBackup) {
+                const date = new Date(appData.lastBackup);
+                document.getElementById('lastBackupTime').textContent = 
+                    'Último respaldo: ' + formatDate(date, true);
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           BACKUP & EXPORT
+           ═══════════════════════════════════════════════════════════════ */
+        function downloadBackup() {
+            try {
+                const dataStr = JSON.stringify(appData, null, 2);
+                const blob = new Blob([dataStr], {type: 'application/json'});
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `vida-fresca-backup-${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showNotification('✅ Respaldo descargado exitosamente', 'success');
+            } catch (error) {
+                showNotification('❌ Error al descargar respaldo', 'error');
+            }
+        }
+
+        function importBackup(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    if (imported.sales !== undefined && imported.expenses !== undefined) {
+                        appData = {
+                            sales: Array.isArray(imported.sales) ? imported.sales : [],
+                            expenses: Array.isArray(imported.expenses) ? imported.expenses : [],
+                            withdrawals: Array.isArray(imported.withdrawals) ? imported.withdrawals : [],
+                            personalExpenses: Array.isArray(imported.personalExpenses) ? imported.personalExpenses : [],
+                            autoSave: imported.autoSave !== false,
+                            lastBackup: imported.lastBackup || null
+                        };
+                        saveData();
+                        updateAllDisplays();
+                        showNotification('✅ Respaldo restaurado exitosamente', 'success');
+                    } else {
+                        throw new Error('Formato inválido');
+                    }
+                } catch (err) {
+                    showNotification('❌ Error al importar archivo', 'error');
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        function toggleAutoSave() {
+            appData.autoSave = !appData.autoSave;
+            document.getElementById('autoSaveStatus').textContent = 
+                appData.autoSave ? 'Auto-guardado activo - Cada 30 segundos' : 'Auto-guardado desactivado';
+            saveData();
+            showNotification(
+                appData.autoSave ? '✅ Auto-guardado activado' : '⏸️ Auto-guardado desactivado', 
+                'success'
+            );
+        }
+
+        function startAutoSave() {
+            if (autoSaveInterval) clearInterval(autoSaveInterval);
+            autoSaveInterval = setInterval(() => {
+                if (appData.autoSave) {
+                    saveData();
+                }
+            }, 30000);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           DELETE CONFIRMATION
+           ═══════════════════════════════════════════════════════════════ */
+        function confirmDelete(type, id) {
+            pendingDelete = { type, id };
+            document.getElementById('confirmModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('confirmModal').classList.remove('active');
+            pendingDelete = null;
+        }
+
+        document.getElementById('confirmAction').addEventListener('click', function() {
+            if (pendingDelete) {
+                const { type, id } = pendingDelete;
+                const deleteFunctions = {
+                    'sale': deleteSale,
+                    'expense': deleteExpense,
+                    'withdrawal': deleteWithdrawal,
+                    'personal': deletePersonalExpense
+                };
+                if (deleteFunctions[type]) {
+                    deleteFunctions[type](id);
+                }
+                closeModal();
+            }
+        });
+
+        /* ═══════════════════════════════════════════════════════════════
+           UTILIDADES
+           ═══════════════════════════════════════════════════════════════ */
+        function formatCurrency(amount) {
+            return '$' + parseFloat(amount || 0).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        }
+
+        function formatDate(dateString, withTime = false) {
+            const date = new Date(dateString);
+            const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+            if (withTime) {
+                options.hour = '2-digit';
+                options.minute = '2-digit';
+            }
+            return date.toLocaleDateString('es-ES', options);
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            const icon = notification.querySelector('.notification-icon');
+            const messageEl = notification.querySelector('.notification-message');
+            
+            const icons = {
+                'success': '✅',
+                'error': '❌',
+                'info': 'ℹ️'
+            };
+            
+            icon.textContent = icons[type] || 'ℹ️';
+            messageEl.textContent = message;
+            notification.className = 'notification show ' + type;
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
