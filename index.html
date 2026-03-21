@@ -14,48 +14,33 @@
             --primary-dark: #0f766e;
             --primary-light: #14b8a6;
             --primary-gradient: linear-gradient(135deg, #0d9488 0%, #06b6d4 100%);
-            
             --secondary: #6366f1;
             --secondary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            
             --accent: #f59e0b;
             --accent-gradient: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
-            
             --danger: #ef4444;
             --danger-gradient: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-            
             --success: #10b981;
             --success-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            
             --bg-dark: #0f172a;
             --bg-card: #1e293b;
             --bg-card-hover: #334155;
             --bg-input: #1e293b;
-            
             --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
             --text-muted: #64748b;
-            
             --border: #334155;
             --border-light: #475569;
-            
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
             --shadow-glow: 0 0 40px rgba(13, 148, 136, 0.3);
-            
             --radius-sm: 8px;
             --radius-md: 12px;
             --radius-lg: 16px;
             --radius-xl: 24px;
-            
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* ═══════════════════════════════════════════════════════════════
-           RESET & BASE
-           ═══════════════════════════════════════════════════════════════ */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-dark); }
@@ -71,9 +56,6 @@
             overflow-x: hidden;
         }
 
-        /* ═══════════════════════════════════════════════════════════════
-           LAYOUT
-           ═══════════════════════════════════════════════════════════════ */
         .app-wrapper { display: flex; min-height: 100vh; }
 
         .sidebar {
@@ -146,9 +128,6 @@
         .page-title { font-size: 32px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; letter-spacing: -0.5px; }
         .page-subtitle { color: var(--text-secondary); font-size: 15px; font-weight: 400; }
 
-        /* ═══════════════════════════════════════════════════════════════
-           CARDS & PANELS
-           ═══════════════════════════════════════════════════════════════ */
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -161,9 +140,6 @@
         .card-title { font-size: 18px; font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 10px; }
         .card-subtitle { font-size: 13px; color: var(--text-muted); font-weight: 400; margin-top: 4px; }
 
-        /* ═══════════════════════════════════════════════════════════════
-           BALANCE CARDS
-           ═══════════════════════════════════════════════════════════════ */
         .balance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-bottom: 32px; }
         .balance-card {
             background: var(--bg-card); border: 1px solid var(--border);
@@ -190,9 +166,6 @@
         .balance-stat-value { font-size: 16px; font-weight: 600; color: var(--text-primary); }
         .balance-stat-label { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
-        /* ═══════════════════════════════════════════════════════════════
-           STATS GRID
-           ═══════════════════════════════════════════════════════════════ */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
         .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; transition: var(--transition); }
         .stat-card:hover { background: var(--bg-card-hover); border-color: var(--border-light); }
@@ -204,9 +177,6 @@
         .stat-value { font-size: 24px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; }
         .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
 
-        /* ═══════════════════════════════════════════════════════════════
-           FORMS
-           ═══════════════════════════════════════════════════════════════ */
         .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 24px; }
         .form-group { margin-bottom: 20px; }
         .form-label { display: block; margin-bottom: 8px; color: var(--text-secondary); font-weight: 500; font-size: 13px; }
@@ -219,13 +189,10 @@
         }
         .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15); }
         .form-input::placeholder { color: var(--text-muted); }
-        .form-select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 18px; padding-right: 44px; }
+        .form-select { cursor: pointer; appearance: none; background-image: url("image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 18px; padding-right: 44px; }
         .form-textarea { resize: vertical; min-height: 100px; }
         .form-hint { font-size: 12px; color: var(--text-muted); margin-top: 6px; display: flex; align-items: center; gap: 6px; }
 
-        /* ═══════════════════════════════════════════════════════════════
-           ITEMS LIST (NEW)
-           ═══════════════════════════════════════════════════════════════ */
         .items-container {
             background: var(--bg-input);
             border: 1px solid var(--border);
@@ -235,7 +202,7 @@
         }
         .item-row {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr auto;
+            grid-template-columns: 2fr 1fr auto;
             gap: 12px;
             margin-bottom: 12px;
             align-items: end;
@@ -267,9 +234,6 @@
         }
         .btn-add-item:hover { border-color: var(--primary); color: var(--primary); background: rgba(13, 148, 136, 0.05); }
 
-        /* ═══════════════════════════════════════════════════════════════
-           BUTTONS
-           ═══════════════════════════════════════════════════════════════ */
         .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 28px; border: none; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; transition: var(--transition); text-decoration: none; }
         .btn-primary { background: var(--primary-gradient); color: white; box-shadow: 0 4px 14px rgba(13, 148, 136, 0.4); }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(13, 148, 136, 0.5); }
@@ -287,9 +251,6 @@
         .btn-block { width: 100%; }
         .btn-group { display: flex; gap: 12px; flex-wrap: wrap; }
 
-        /* ═══════════════════════════════════════════════════════════════
-           TABLES
-           ═══════════════════════════════════════════════════════════════ */
         .table-wrapper { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid var(--border); }
         .table { width: 100%; border-collapse: collapse; font-size: 14px; }
         .table th { background: var(--bg-card-hover); color: var(--text-secondary); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; padding: 16px 20px; text-align: left; border-bottom: 1px solid var(--border); }
@@ -298,9 +259,6 @@
         .table tr:hover { background: var(--bg-card-hover); }
         .table tr:last-child td { border-bottom: none; }
 
-        /* ═══════════════════════════════════════════════════════════════
-           BADGES
-           ═══════════════════════════════════════════════════════════════ */
         .badge { display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
         .badge-sale { background: rgba(16, 185, 129, 0.15); color: #10b981; }
         .badge-expense { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
@@ -310,16 +268,10 @@
         .amount-negative { color: #ef4444; font-weight: 600; }
         .amount-info { color: #6366f1; font-weight: 600; }
 
-        /* ═══════════════════════════════════════════════════════════════
-           SECTIONS (SPA)
-           ═══════════════════════════════════════════════════════════════ */
         .section { display: none; animation: fadeIn 0.4s ease; }
         .section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ═══════════════════════════════════════════════════════════════
-           BACKUP SECTION
-           ═══════════════════════════════════════════════════════════════ */
         .backup-card { background: linear-gradient(135deg, rgba(13, 148, 136, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%); border: 1px solid rgba(13, 148, 136, 0.3); }
         .backup-status { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; background: var(--bg-input); border-radius: var(--radius-md); margin-top: 20px; }
         .status-indicator { display: flex; align-items: center; gap: 10px; color: #10b981; font-weight: 600; font-size: 14px; }
@@ -327,17 +279,11 @@
         @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.1); } }
         .last-backup { color: var(--text-muted); font-size: 13px; }
 
-        /* ═══════════════════════════════════════════════════════════════
-           EMPTY STATE
-           ═══════════════════════════════════════════════════════════════ */
         .empty-state { text-align: center; padding: 60px 20px; }
         .empty-icon { font-size: 64px; margin-bottom: 16px; opacity: 0.5; }
         .empty-title { color: var(--text-primary); font-size: 18px; font-weight: 600; margin-bottom: 8px; }
         .empty-text { color: var(--text-muted); font-size: 14px; }
 
-        /* ═══════════════════════════════════════════════════════════════
-           NOTIFICATIONS
-           ═══════════════════════════════════════════════════════════════ */
         .notification { position: fixed; top: 24px; right: 24px; padding: 16px 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-xl); transform: translateX(400px); transition: var(--transition); z-index: 9999; display: flex; align-items: center; gap: 12px; min-width: 320px; }
         .notification.show { transform: translateX(0); }
         .notification.success { border-color: #10b981; background: rgba(16, 185, 129, 0.1); }
@@ -346,9 +292,6 @@
         .notification-icon { font-size: 20px; }
         .notification-message { color: var(--text-primary); font-weight: 500; font-size: 14px; }
 
-        /* ═══════════════════════════════════════════════════════════════
-           MODAL
-           ═══════════════════════════════════════════════════════════════ */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 9999; }
         .modal-overlay.active { display: flex; }
         .modal { background: var(--bg-card); border: 1px solid var(--border); padding: 32px; border-radius: var(--radius-xl); max-width: 480px; width: 90%; box-shadow: var(--shadow-xl); animation: modalIn 0.3s ease; }
@@ -358,17 +301,11 @@
         .modal-buttons { display: flex; gap: 12px; margin-top: 28px; }
         .modal-buttons .btn { flex: 1; }
 
-        /* ═══════════════════════════════════════════════════════════════
-           HISTORY TABS
-           ═══════════════════════════════════════════════════════════════ */
         .tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; padding: 6px; background: var(--bg-input); border-radius: var(--radius-lg); width: fit-content; }
         .tab { padding: 10px 20px; border: none; background: transparent; color: var(--text-secondary); font-weight: 500; font-size: 14px; cursor: pointer; border-radius: var(--radius-md); transition: var(--transition); font-family: inherit; }
         .tab:hover { color: var(--text-primary); background: var(--bg-card-hover); }
         .tab.active { background: var(--primary); color: white; }
 
-        /* ═══════════════════════════════════════════════════════════════
-           FLOW DIAGRAM
-           ═══════════════════════════════════════════════════════════════ */
         .flow-diagram { display: flex; justify-content: center; align-items: center; gap: 16px; padding: 32px; background: var(--bg-input); border-radius: var(--radius-xl); margin-bottom: 32px; flex-wrap: wrap; }
         .flow-box { padding: 16px 24px; border-radius: var(--radius-lg); text-align: center; font-weight: 600; font-size: 14px; min-width: 140px; }
         .flow-box.sales { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
@@ -377,9 +314,6 @@
         .flow-box.expenses { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
         .flow-arrow { font-size: 20px; color: var(--text-muted); }
 
-        /* ═══════════════════════════════════════════════════════════════
-           RESPONSIVE
-           ═══════════════════════════════════════════════════════════════ */
         @media (max-width: 1024px) { .sidebar { width: 240px; } .main-content { margin-left: 240px; padding: 24px; } }
         @media (max-width: 768px) {
             .sidebar { width: 100%; height: auto; position: relative; padding: 16px; }
@@ -446,7 +380,6 @@
                     <p class="page-subtitle">Resumen completo de tu emprendimiento</p>
                 </div>
 
-                <!-- Flow Diagram -->
                 <div class="card mb-4">
                     <div class="card-header">
                         <div>
@@ -465,7 +398,6 @@
                     </div>
                 </div>
 
-                <!-- Balance Cards -->
                 <div class="balance-grid">
                     <div class="balance-card business">
                         <div class="balance-header">
@@ -508,7 +440,6 @@
                     </div>
                 </div>
 
-                <!-- Stats Grid -->
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-icon sales">📈</div>
@@ -532,7 +463,6 @@
                     </div>
                 </div>
 
-                <!-- Backup Section -->
                 <div class="card backup-card mb-4">
                     <div class="card-header">
                         <div>
@@ -555,7 +485,6 @@
                     </div>
                 </div>
 
-                <!-- Recent Transactions -->
                 <div class="card">
                     <div class="card-header">
                         <div>
@@ -607,9 +536,7 @@
 
                         <div class="items-container">
                             <div class="form-label mb-2">🥗 Items de la Venta</div>
-                            <div id="saleItemsList">
-                                <!-- Dynamic items will appear here -->
-                            </div>
+                            <div id="saleItemsList"></div>
                             <button type="button" class="btn-add-item mt-2" onclick="addSaleItemRow()">
                                 ➕ Agregar otra ensalada
                             </button>
@@ -625,9 +552,7 @@
                             <span class="amount-positive" id="saleTotalDisplay" style="font-size: 24px; font-weight: 700;">$0.00</span>
                         </div>
 
-                        <button type="submit" class="btn btn-success btn-block">
-                            ✅ Registrar Venta
-                        </button>
+                        <button type="submit" class="btn btn-success btn-block">✅ Registrar Venta</button>
                     </form>
                 </div>
 
@@ -660,11 +585,11 @@
                 </div>
             </section>
 
-            <!-- Compras Section -->
+            <!-- Compras Section (SIMPLIFICADA) -->
             <section id="compras" class="section">
                 <div class="page-header">
                     <h1 class="page-title">🛒 Registrar Compra de Insumos</h1>
-                    <p class="page-subtitle">Agrega múltiples productos a una misma compra</p>
+                    <p class="page-subtitle">Solo ingresa qué compraste y cuánto gastaste</p>
                 </div>
 
                 <div class="card mb-4">
@@ -685,29 +610,25 @@
                         </div>
 
                         <div class="items-container">
-                            <div class="form-label mb-2">🥬 Items Comprados</div>
-                            <div id="expenseItemsList">
-                                <!-- Dynamic items will appear here -->
-                            </div>
+                            <div class="form-label mb-2">🥬 ¿Qué compraste?</div>
+                            <div id="expenseItemsList"></div>
                             <button type="button" class="btn-add-item mt-2" onclick="addExpenseItemRow()">
-                                ➕ Agregar otro insumo
+                                ➕ Agregar otro producto
                             </button>
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">Descripción General</label>
+                            <label class="form-label">Descripción General (Opcional)</label>
                             <textarea class="form-textarea" id="expenseDescription" placeholder="Detalles adicionales..."></textarea>
                         </div>
 
                         <div class="backup-status mb-3" style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3);">
-                            <span class="status-indicator" style="color: #ef4444;">Total a Pagar:</span>
+                            <span class="status-indicator" style="color: #ef4444;">Total Gastado:</span>
                             <span class="amount-negative" id="expenseTotalDisplay" style="font-size: 24px; font-weight: 700;">$0.00</span>
                         </div>
 
                         <div class="form-hint mb-3">⚠️ Este gasto se descontará del fondo del negocio</div>
-                        <button type="submit" class="btn btn-primary btn-block">
-                            ✅ Registrar Compra
-                        </button>
+                        <button type="submit" class="btn btn-primary btn-block">✅ Registrar Compra</button>
                     </form>
                 </div>
 
@@ -724,7 +645,7 @@
                                 <tr>
                                     <th>Fecha</th>
                                     <th>Proveedor</th>
-                                    <th>Items</th>
+                                    <th>Productos</th>
                                     <th>Total</th>
                                     <th>Acción</th>
                                 </tr>
@@ -767,9 +688,7 @@
                             <label class="form-label">Nota (Opcional)</label>
                             <input type="text" class="form-input" id="withdrawalNote" placeholder="Ej: Sueldo semanal, gastos del mes...">
                         </div>
-                        <button type="submit" class="btn btn-secondary btn-block">
-                            💵 Realizar Retiro
-                        </button>
+                        <button type="submit" class="btn btn-secondary btn-block">💵 Realizar Retiro</button>
                     </form>
                 </div>
 
@@ -838,9 +757,7 @@
                             <input type="text" class="form-input" id="personalExpenseDescription" placeholder="Ej: Almuerzo, taxi, cine...">
                         </div>
                         <div class="form-hint">⚠️ Este gasto se descontará de tu bolsillo personal (tus retiros)</div>
-                        <button type="submit" class="btn btn-accent btn-block mt-3">
-                            ✅ Registrar Gasto Personal
-                        </button>
+                        <button type="submit" class="btn btn-accent btn-block mt-3">✅ Registrar Gasto Personal</button>
                     </form>
                 </div>
 
@@ -959,14 +876,12 @@
             updateAllDisplays();
             startAutoSave();
             
-            // Set default date to now for inputs
             const now = new Date();
             now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
             const nowString = now.toISOString().slice(0,16);
             document.getElementById('saleDate').value = nowString;
             document.getElementById('expenseDate').value = nowString;
             
-            // Add initial row
             addSaleItemRow();
             addExpenseItemRow();
         });
@@ -1017,7 +932,7 @@
             });
         }
 
-        // --- SALE ITEMS LOGIC ---
+        // --- VENTAS: Items con cantidad y precio ---
         function addSaleItemRow() {
             const container = document.getElementById('saleItemsList');
             const row = document.createElement('div');
@@ -1027,10 +942,12 @@
                     <label class="form-label" style="font-size:11px">Producto</label>
                     <select class="form-select sale-item-type" required>
                         <option value="">Seleccionar...</option>
-                        <option value="mix arcoiris">🥗 Mix Arcoiris</option>
-                        <option value="la colorada">🥗 La colorada</option>
-                        <option value="coleslaw">🥗 Coleslaw</option>
-                        <option value="mixta">🥗 Mixta</option>
+                        <option value="clasica">🥗 Clásica</option>
+                        <option value="cesar">🥗 César</option>
+                        <option value="griega">🥗 Griega</option>
+                        <option value="caprese">🥗 Caprese</option>
+                        <option value="especial">🥗 Especial Vida Fresca</option>
+                        <option value="personalizada">🥗 Personalizada</option>
                     </select>
                 </div>
                 <div>
@@ -1058,22 +975,18 @@
             return total;
         }
 
-        // --- EXPENSE ITEMS LOGIC ---
+        // --- COMPRAS: SIMPLIFICADO - Solo producto y precio final ---
         function addExpenseItemRow() {
             const container = document.getElementById('expenseItemsList');
             const row = document.createElement('div');
             row.className = 'item-row';
             row.innerHTML = `
                 <div>
-                    <label class="form-label" style="font-size:11px">Insumo</label>
-                    <input type="text" class="form-input expense-item-name" placeholder="Ej: Lechuga" required>
+                    <label class="form-label" style="font-size:11px">¿Qué compraste?</label>
+                    <input type="text" class="form-input expense-item-name" placeholder="Ej: Lechuga, Tomates, Pollo..." required>
                 </div>
                 <div>
-                    <label class="form-label" style="font-size:11px">Cant.</label>
-                    <input type="text" class="form-input expense-item-qty" placeholder="Ej: 5kg" >
-                </div>
-                <div>
-                    <label class="form-label" style="font-size:11px">Precio Total</label>
+                    <label class="form-label" style="font-size:11px">Precio Final ($)</label>
                     <input type="number" class="form-input expense-item-price" placeholder="0.00" step="0.01" min="0" required oninput="calculateExpenseTotal()">
                 </div>
                 <button type="button" class="btn-remove-item" onclick="removeRow(this)" title="Eliminar item">🗑️</button>
@@ -1096,7 +1009,6 @@
             const container = btn.parentElement.parentElement;
             if (container.children.length > 1) {
                 btn.parentElement.remove();
-                // Recalculate totals
                 if (container.id === 'saleItemsList') calculateSaleTotal();
                 if (container.id === 'expenseItemsList') calculateExpenseTotal();
             } else {
@@ -1161,14 +1073,13 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════
-           VENTAS (CON MÚLTIPLES ITEMS)
+           VENTAS
            ═══════════════════════════════════════════════════════════════ */
         function addSale() {
             const date = document.getElementById('saleDate').value;
             const client = document.getElementById('saleClient').value;
             const notes = document.getElementById('saleNotes').value;
             
-            // Collect items
             const items = [];
             const rows = document.querySelectorAll('#saleItemsList .item-row');
             let isValid = true;
@@ -1202,11 +1113,10 @@
             appData.sales.push(sale);
             saveData();
             
-            // Reset form but keep date
             document.getElementById('saleForm').reset();
-            document.getElementById('saleDate').value = date; 
+            document.getElementById('saleDate').value = date;
             document.getElementById('saleItemsList').innerHTML = '';
-            addSaleItemRow(); // Add one empty row back
+            addSaleItemRow();
             calculateSaleTotal();
             
             showNotification('✅ Venta registrada exitosamente', 'success');
@@ -1221,14 +1131,13 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════
-           COMPRAS (CON MÚLTIPLES ITEMS)
+           COMPRAS (SIMPLIFICADO)
            ═══════════════════════════════════════════════════════════════ */
         function addExpense() {
             const date = document.getElementById('expenseDate').value;
             const provider = document.getElementById('expenseProvider').value;
             const description = document.getElementById('expenseDescription').value;
             
-            // Collect items
             const items = [];
             const rows = document.querySelectorAll('#expenseItemsList .item-row');
             let isValid = true;
@@ -1236,12 +1145,11 @@
 
             rows.forEach(row => {
                 const name = row.querySelector('.expense-item-name').value;
-                const qty = row.querySelector('.expense-item-qty').value;
                 const price = parseFloat(row.querySelector('.expense-item-price').value) || 0;
 
-                if (!name || !qty || price <= 0) isValid = false;
+                if (!name || price <= 0) isValid = false;
                 
-                items.push({ name, qty, price });
+                items.push({ name, price });
                 grandTotal += price;
             });
 
@@ -1268,7 +1176,6 @@
             appData.expenses.push(expense);
             saveData();
             
-            // Reset form
             document.getElementById('expenseForm').reset();
             document.getElementById('expenseDate').value = date;
             document.getElementById('expenseItemsList').innerHTML = '';
@@ -1372,32 +1279,26 @@
         function updateAllDisplays() {
             const balances = calculateBalances();
             
-            // Update balance cards
             document.getElementById('businessBalance').textContent = formatCurrency(balances.businessBalance);
             document.getElementById('personalBalance').textContent = formatCurrency(balances.personalBalance);
 
-            // Update balance stats
             document.getElementById('businessIncome').textContent = formatCurrency(balances.totalSales);
             document.getElementById('businessExpenses').textContent = formatCurrency(balances.totalExpenses + balances.totalWithdrawals);
             document.getElementById('personalIncome').textContent = formatCurrency(balances.totalWithdrawals);
             document.getElementById('personalExpenses').textContent = formatCurrency(balances.totalPersonalExpenses);
 
-            // Update stats grid
             document.getElementById('totalSales').textContent = formatCurrency(balances.totalSales);
             document.getElementById('totalExpenses').textContent = formatCurrency(balances.totalExpenses);
             document.getElementById('totalWithdrawals').textContent = formatCurrency(balances.totalWithdrawals);
             document.getElementById('totalPersonalExpenses').textContent = formatCurrency(balances.totalPersonalExpenses);
 
-            // Update fund displays
             document.getElementById('availableBusinessFund').textContent = formatCurrency(balances.businessBalance);
             document.getElementById('withdrawalBusinessFund').textContent = formatCurrency(balances.businessBalance);
             document.getElementById('withdrawalPersonalFund').textContent = formatCurrency(balances.personalBalance);
             document.getElementById('personalExpenseFund').textContent = formatCurrency(balances.personalBalance);
 
-            // Update withdrawal badge
             document.getElementById('withdrawalBadge').textContent = appData.withdrawals.length;
 
-            // Update tables
             updateSalesTable();
             updateExpensesTable();
             updateWithdrawalsTable();
@@ -1418,7 +1319,6 @@
 
             empty.style.display = 'none';
             tbody.innerHTML = appData.sales.slice().reverse().map(s => {
-                // Create items summary string: "3x Clásica, 4x Mix..."
                 const itemsSummary = s.items.map(i => `${i.qty}x ${i.type}`).join(', ');
                 
                 return `
@@ -1444,8 +1344,8 @@
 
             empty.style.display = 'none';
             tbody.innerHTML = appData.expenses.slice().reverse().map(e => {
-                // Create items summary string: "Lechuga (5kg), Tomate (2kg)..."
-                const itemsSummary = e.items.map(i => `${i.name} (${i.qty})`).join(', ');
+                // Solo muestra el nombre del producto, sin peso/cantidad
+                const itemsSummary = e.items.map(i => i.name).join(', ');
 
                 return `
                 <tr>
